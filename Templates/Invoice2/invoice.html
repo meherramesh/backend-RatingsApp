@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            color: #333;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .company-name {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .invoice-title {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .section {
+            margin-top: 30px;
+        }
+
+        .two-column {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .info-box {
+            width: 45%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+            table th {
+                background-color: #4CAF50;
+                color: white;
+                padding: 8px;
+                text-align: left;
+            }
+
+            table td {
+                padding: 8px;
+                border-bottom: 1px solid #ddd;
+            }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .totals {
+            margin-top: 20px;
+            width: 40%;
+            float: right;
+        }
+
+            .totals td {
+                padding: 6px;
+            }
+
+        .total-final {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="company-name">Your Company Name</div>
+        <div class="invoice-title">INVOICE</div>
+    </div>
+
+    <hr />
+
+    <div class="section two-column">
+        <div class="info-box">
+            <strong>Bill To:</strong><br>
+            Alex Doe<br>
+            Street, City<br>
+            State, Country<br>
+            Phone: 111-111-111
+        </div>
+
+        <div class="info-box text-right">
+            <strong>Invoice Details</strong><br>
+            Invoice ID: #111-222<br>
+            Issue Date: Oct 12, 2019<br>
+            Status: Unpaid
+        </div>
+    </div>
+
+    <div class="section">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Description</th>
+                    <th>Qty</th>
+                    <th>Unit Price</th>
+                    <th class="text-right">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Domain registration</td>
+                    <td>2</td>
+                    <td>$10</td>
+                    <td class="text-right">$20</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Web hosting</td>
+                    <td>1</td>
+                    <td>$15</td>
+                    <td class="text-right">$15</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Software development</td>
+                    <td>-</td>
+                    <td>$1,000</td>
+                    <td class="text-right">$1,000</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Consulting</td>
+                    <td>1 Year</td>
+                    <td>$500</td>
+                    <td class="text-right">$500</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <table class="totals">
+        <tr>
+            <td>Subtotal:</td>
+            <td class="text-right">$2,250</td>
+        </tr>
+        <tr>
+            <td>Tax (10%):</td>
+            <td class="text-right">$225</td>
+        </tr>
+        <tr class="total-final">
+            <td>Total:</td>
+            <td class="text-right">$2,475</td>
+        </tr>
+    </table>
+
+    <div style="clear: both;"></div>
+
+    <div class="footer">
+        Thank you for your business!
+    </div>
+
+</body>
+</html>

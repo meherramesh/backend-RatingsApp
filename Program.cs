@@ -1,38 +1,9 @@
-<<<<<<< HEAD
-﻿var builder = WebApplication.CreateBuilder(args);
+using DinkToPdf;
+using DinkToPdf.Contracts;
+using System.Reflection;
+using System.Runtime.Loader;
 
-builder.Services.AddControllers();
-builder.Services.AddOpenApi();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAngular", policy =>
-    {
-        policy
-            .WithOrigins("http://localhost:4200")
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    });
-});
-
-var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
-
-app.UseHttpsRedirection();
-
-// ⭐ THIS LINE WAS MISSING
-app.UseCors("AllowAngular");
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
-=======
 using Microsoft.EntityFrameworkCore;
 using RatingsApp.Data;
 using RatingsApp.Repositories.Interfaces;
@@ -40,14 +11,23 @@ using RatingsApp.Repositories.Implementations;
 using RatingsApp.Services.Interfaces;
 using RatingsApp.Services.Implementations;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 /// --------------------
 /// ADD SERVICES
 /// --------------------
 
-// 1. Controllers + JSON options (prevents circular reference issue)
+// Controllers + JSON options
+
+
+var context = new CustomAssemblyLoadContext();
+var path = Path.Combine(Directory.GetCurrentDirectory(), "DinkToPdf", "libwkhtmltox.dll");
+context.LoadUnmanagedLibrary(path);
+
+
+
+
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -55,16 +35,16 @@ builder.Services.AddControllers()
             System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
     });
 
-// 2. Swagger
+// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// 3. DbContext (PostgreSQL)
+// DbContext (PostgreSQL)
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
-// 4. CORS (for Angular frontend)
+// CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp",
@@ -77,7 +57,7 @@ builder.Services.AddCors(options =>
 });
 
 /// --------------------
-/// REPOSITORY REGISTRATION
+/// REPOSITORIES
 /// --------------------
 builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
 builder.Services.AddScoped<IQualityRepository, QualityRepository>();
@@ -88,7 +68,7 @@ builder.Services.AddScoped<IResponseRepository, ResponseRepository>();
 builder.Services.AddScoped<IOverallRepository, OverallRepository>();
 
 /// --------------------
-/// SERVICE REGISTRATION
+/// SERVICES
 /// --------------------
 builder.Services.AddScoped<ISupplierService, SupplierService>();
 builder.Services.AddScoped<IQualityService, QualityService>();
@@ -98,69 +78,45 @@ builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IResponseService, ResponseService>();
 builder.Services.AddScoped<IOverallService, OverallService>();
 
+
+builder.Services.AddSingleton(typeof(IConverter),
+    new SynchronizedConverter(new PdfTools()));
+
+
 var app = builder.Build();
 
 /// --------------------
-/// MIDDLEWARE PIPELINE
+/// MIDDLEWARE
 /// --------------------
 
-// 1. Swagger (only in Development)
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// 2. HTTPS
 app.UseHttpsRedirection();
-
-// 3. CORS (MUST be before Authorization)
 app.UseCors("AllowAngularApp");
-
-// 4. Authorization
 app.UseAuthorization();
-
-// 5. Map Controllers
 app.MapControllers();
 
 app.Run();
 
+public class CustomAssemblyLoadContext : AssemblyLoadContext
+{
+    public IntPtr LoadUnmanagedLibrary(string absolutePath)
+    {
+        return LoadUnmanagedDllFromPath(absolutePath);
+    }
 
+    protected override IntPtr LoadUnmanagedDll(string unmanagedDllName)
+    {
+        return LoadUnmanagedDllFromPath(unmanagedDllName);
+    }
 
+    protected override Assembly Load(AssemblyName assemblyName)
+    {
+        return null;
+    }
+}
 
-
-
-
-//using Microsoft.EntityFrameworkCore;
-//using RatingsApp.Data;
-//using RatingsApp.Repositories.Implementations;
-//using RatingsApp.Repositories.Interfaces;
-//using RatingsApp.Services.Implementations;
-//using RatingsApp.Services.Interfaces;
-
-//var builder = WebApplication.CreateBuilder(args);
-
-//builder.Services.AddControllers();
-
-//builder.Services.AddDbContext<AppDbContext>(options =>
-//    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
-//);
-
-//builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
-//builder.Services.AddScoped<ISupplierService, SupplierService>();
-
-//builder.Services.AddEndpointsApiExplorer();
-////builder.Services.AddSwaggerGen();
-
-//var app = builder.Build();
-
-////app.UseSwagger();
-////app.UseSwaggerUI();
-
-//app.UseHttpsRedirection();
-//app.UseAuthorization();
-
-//app.MapControllers();
-
-//app.Run();
->>>>>>> cf24106ea1da310e2aefb36fb90a73615a80587b

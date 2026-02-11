@@ -221,6 +221,42 @@
         }
       }
     },
+    "/api/pdf/single": {
+      "get": {
+        "tags": [
+          "Pdf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/pdf/multiple": {
+      "get": {
+        "tags": [
+          "Pdf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/pdf/combine": {
+      "get": {
+        "tags": [
+          "Pdf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/quality": {
       "post": {
         "tags": [
@@ -268,6 +304,37 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/RatingApp": {
+      "post": {
+        "tags": [
+          "RatingApp"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RatingAppForm"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RatingAppForm"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RatingAppForm"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -561,6 +628,37 @@
         },
         "additionalProperties": false
       },
+      "RatingAppForm": {
+        "required": [
+          "reportPeriod",
+          "supplierName",
+          "vendorCode"
+        ],
+        "type": "object",
+        "properties": {
+          "supplierName": {
+            "type": "string",
+            "nullable": true
+          },
+          "vendorCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "reportPeriod": {
+            "type": "string",
+            "nullable": true
+          },
+          "rejectionPPM": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lineStoppage": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "ResponsePerformance": {
         "type": "object",
         "properties": {
@@ -662,7 +760,13 @@
       "name": "Payment"
     },
     {
+      "name": "Pdf"
+    },
+    {
       "name": "Quality"
+    },
+    {
+      "name": "RatingApp"
     },
     {
       "name": "Response"

@@ -128,6 +128,36 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "RatingsApp.Controllers.PdfController",
+    "Method": "GenerateCombined",
+    "RelativePath": "api/pdf/combine",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "RatingsApp.Controllers.PdfController",
+    "Method": "GenerateMultiple",
+    "RelativePath": "api/pdf/multiple",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "RatingsApp.Controllers.PdfController",
+    "Method": "GenerateSingle",
+    "RelativePath": "api/pdf/single",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "RatingsApp.Controllers.QualityController",
     "Method": "Add",
     "RelativePath": "api/quality",
@@ -154,6 +184,22 @@
       {
         "Name": "supplierId",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "RatingAppController",
+    "Method": "SaveRatingApp",
+    "RelativePath": "api/RatingApp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "form",
+        "Type": "RatingAppForm",
         "IsRequired": true
       }
     ],

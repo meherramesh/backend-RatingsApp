@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RatingsApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ecfefe6ec919a1a8204472f205249f6baac84a94")]
 [assembly: System.Reflection.AssemblyProductAttribute("RatingsApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RatingsApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
